@@ -2,3 +2,5 @@ logs/CelebA_EBGAN_logs_failed logs/CelebA_EBGAN_logs_failed2 logs/CelebA_EBGAN_l
 Data_zoo/CelebA_faces Data_zoo/flowers_data
 logs
 Data_zoo
+TensorflowUtils.pyc
+.idea
