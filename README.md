@@ -3,7 +3,7 @@ Tensorflow implementation of [Energy Based Generative Adversarial Networks (EBGA
 
 - [Results](#results)
 - [Observations](#observations)
-- [References](#references)
+- [Useful links](#useful-links)
 
 *Disclaimer: Still experimenting with higher resolution GAN* :confused: *and the repo is still under edit ...*
 
@@ -82,3 +82,13 @@ Both results are after 8 epochs - will update results for longer epochs later.
 
 ![](logs/images/margin20_fake.png)    ![](logs/images/margin20_real.png)
 
+![](logs/images/pullaway_fake.png)    ![](logs/images/pullaway_real.png)
+
+ - Example of autoencoder reconstruction - the margin term pulls the autoencoder from achieving zero loss. Also the number of layers we use for autoencoder is limited by the choice for generator which is another problem for not getting good decoded image.
+ 
+![](logs/images/decoded.png)
+
+
+##Useful links
+ - [Are Energy-Based GANs any more energy-based than normal GANs?](http://www.inference.vc/are-energy-based-gans-actually-energy-based/)
+ 
