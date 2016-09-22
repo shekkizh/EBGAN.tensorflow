@@ -207,12 +207,17 @@ def discriminator(input_images, train_mode):
 
 
 def pullaway_loss(embeddings):
+    """
+    Pull Away loss calculation
+    :param embeddings: The embeddings to be orthogonalized for varied faces. Shape [batch_size, embeddings_dim]
+    :return: pull away term loss
+    """
     norm = tf.sqrt(tf.reduce_sum(tf.square(embeddings), 1, keep_dims=True))
     normalized_embeddings = embeddings / norm
     similarity = tf.matmul(
         normalized_embeddings, normalized_embeddings, transpose_b=True)
     batch_size = tf.cast(tf.shape(embeddings)[0], tf.float32)
-    pt_loss = (tf.reduce_sum(similarity) - batch_size) / (batch_size * (batch_size-1))
+    pt_loss = (tf.reduce_sum(similarity) - batch_size) / (batch_size * (batch_size - 1))
     return pt_loss
 
 
@@ -250,6 +255,7 @@ def main(argv=None):
     pt_loss = 0
     if FLAGS.pt:
         print("Adding pull away loss term...")
+        # Using all the embeddings for pull away loss - no mini batches
         pt_loss = pullaway_loss(embeddings_fake)
     gen_loss = discrimintator_loss_fake + PT_LOSS_WEIGHT * pt_loss
 
@@ -307,7 +313,7 @@ def main(argv=None):
             sess.run(discriminator_train_op, feed_dict=feed_dict)
             sess.run(generator_train_op, feed_dict=feed_dict)
             sess.run(generator_train_op, feed_dict=feed_dict)
-            
+
             if itr % 10 == 0:
                 g_loss_val, d_loss_val, summary_str = sess.run([gen_loss, discriminator_loss, summary_op],
                                                                feed_dict=feed_dict)
